@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="et">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PALJU ÕNNE!</title>
+
+<!-- Open Graph (WhatsApp / Facebook preview) -->
+
+<meta property="og:title" content="PALJU ÕNNE!">
+<meta property="og:description" content="Väike sünnipäevaüllatus 🎵">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://clscap.github.io/birthday-player/">
+<meta property="og:image" content="https://clscap.github.io/birthday-player/cover-sun.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter large card -->
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PALJU ÕNNE!">
+<meta name="twitter:description" content="Väike sünnipäevaüllatus 🎵">
+<meta name="twitter:image" content="https://clscap.github.io/birthday-player/cover-sun.jpg">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    text-align: center;
+
+    background: linear-gradient(
+        to bottom,
+        #29A6E6 0%,
+        #0E74B8 100%
+    );
+
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* BALLOON STYLE */
+
+.balloon {
+    position: absolute;
+    bottom: -120px;
+    width: 40px;
+    height: 50px;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.balloon::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 40px;
+    background: rgba(255,255,255,0.7);
+    left: 50%;
+    top: 50px;
+}
+
+.blue { background: #5ec5ff; }
+.yellow { background: #ffd84d; }
+
+/* FLOAT ANIMATION */
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-120vh);
+    }
+}
+
+/* PLAYER CARD */
+
+.container {
+    padding: 35px 30px;
+
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.15);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.35),
+        inset 0 0 0 1px rgba(255,255,255,0.1);
+
+    position: relative;
+    z-index: 2;
+}
+
+img {
+    width: 320px;
+    max-width: 90%;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    margin-bottom: 10px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    letter-spacing: 3px;
+}
+
+audio {
+    margin-top: 20px;
+    width: 320px;
+    max-width: 90%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>PALJU ÕNNE!</h1>
+
+<img src="cover-sun.jpg" alt="Cover Art">
+
+<audio id="player" controls autoplay muted>
+<source src="birthday-morning.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+
+/* AUTOPLAY */
+
+const audio = document.getElementById("player");
+
+window.addEventListener("load", () => {
+    audio.muted = false;
+    audio.play().catch(() => {});
+});
+
+/* RANDOM BALLOONS */
+
+function createBalloon() {
+
+    const balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+
+    const colors = ["blue","yellow"];
+    balloon.classList.add(colors[Math.floor(Math.random()*colors.length)]);
+
+    balloon.style.left = Math.random()*100 + "vw";
+
+    const duration = 16 + Math.random()*10;
+    balloon.style.animation = `floatUp ${duration}s linear`;
+
+    document.body.appendChild(balloon);
+
+    setTimeout(() => {
+        balloon.remove();
+    }, duration*1000);
+}
+
+setInterval(createBalloon, 1200);
+
+</script>
+
+</body>
+</html>
